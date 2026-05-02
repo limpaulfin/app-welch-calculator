@@ -1,0 +1,34 @@
+/* Output table + formula + references blocks */
+#output table { border-collapse: collapse; width: 100%; }
+#output td {
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid #eee;
+  vertical-align: top;
+}
+#output td:first-child {
+  font-family: "Courier New", monospace;
+  width: 45%;
+  color: #444;
+}
+#output td:last-child {
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+  color: var(--cud-blue);
+}
+#output strong {
+  color: var(--cud-vermillion);
+  font-size: 1.1rem;
+}
+.formula p, .refs p {
+  font-size: 0.92rem;
+  margin: 0.4rem 0;
+}
+.formula code {
+  font-family: "Courier New", monospace;
+  background: #f0f0f0;
+  padding: 0.05em 0.25em;
+}
+.refs a {
+  color: var(--cud-blue);
+  word-break: break-all;
+}

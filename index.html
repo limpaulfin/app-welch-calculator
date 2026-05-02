@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>APP-Welch Sample Size Calculator</title>
+  <meta name="description" content="A Priori Procedure under heterogeneous variances. Welch-Satterthwaite extension. Browser calculator.">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/inputs.css">
+  <link rel="stylesheet" href="css/output.css">
+</head>
+<body>
+  <header>
+    <h1>APP-Welch Sample Size Calculator</h1>
+    <p class="sub">A Priori Procedure under Heterogeneous Variances. Welch-Satterthwaite extension.</p>
+  </header>
+
+  <main>
+    <section class="inputs">
+      <h2>Inputs</h2>
+      <label>Precision fraction <code>f</code>
+        <input type="number" id="f" value="0.20" step="0.01" min="0.001" max="0.999">
+        <span class="hint">0 &lt; f &lt; 1 (e.g. 0.20 means &plusmn;0.20&sigma;)</span>
+      </label>
+      <label>Assurance level <code>c</code>
+        <input type="number" id="c" value="0.95" step="0.01" min="0.001" max="0.999">
+        <span class="hint">0 &lt; c &lt; 1 (e.g. 0.95)</span>
+      </label>
+      <label>Group 1 standard deviation <code>&sigma;<sub>1</sub></code>
+        <input type="number" id="s1" value="1.00" step="0.01" min="0.001">
+      </label>
+      <label>Group 2 standard deviation <code>&sigma;<sub>2</sub></code>
+        <input type="number" id="s2" value="1.50" step="0.01" min="0.001">
+      </label>
+      <button id="compute-btn" type="button">Compute</button>
+      <p class="status" id="status" aria-live="polite"></p>
+    </section>
+
+    <section class="output">
+      <h2>Results (per-group balanced design)</h2>
+      <div id="output"></div>
+    </section>
+
+    <section class="formula">
+      <h2>Formulas</h2>
+      <p><code>n<sub>min</sub> = &lceil;(z<sub>(1+c)/2</sub> / f)&sup2;&rceil;</code> per group.</p>
+      <p><code>&nu;* = (&sigma;&sup2;<sub>1</sub>/n + &sigma;&sup2;<sub>2</sub>/n)&sup2; / [(&sigma;&sup2;<sub>1</sub>/n)&sup2;/(n&minus;1) + (&sigma;&sup2;<sub>2</sub>/n)&sup2;/(n&minus;1)]</code> (Satterthwaite).</p>
+      <p><code>CI half-width = t<sub>&nu;*, (1+c)/2</sub> &middot; &radic;(&sigma;&sup2;<sub>1</sub>/n + &sigma;&sup2;<sub>2</sub>/n)</code>.</p>
+      <p>z computed via Beasley-Springer-Moro inverse normal. t computed via Newton iteration on Lentz incomplete beta.</p>
+    </section>
+
+    <section class="refs">
+      <h2>Methodological Background</h2>
+      <p>The A Priori Procedure was introduced by Trafimow &amp; MacDonald (2017, <a href="https://doi.org/10.1177/0013164416659745">doi:10.1177/0013164416659745</a>) and further developed by Wang, Wang &amp; Trafimow (2019), Trafimow et al. (2020), and Trafimow (2023, <a href="https://doi.org/10.4324/9781003365167-7">doi:10.4324/9781003365167-7</a>). Heteroscedastic inference uses the Welch (1947) <em>t</em>-statistic with Satterthwaite (1946) effective degrees of freedom. Online calculators accompanying earlier APP papers are linked from the Trafimow (2023) chapter.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Source: <a href="https://github.com/limpaulfin/app-welch-calculator">github.com/limpaulfin/app-welch-calculator</a> &middot; MIT License &middot; Pure HTML/CSS/JS &middot; No tracking.</p>
+  </footer>
+
+  <script src="js/lgamma.js"></script>
+  <script src="js/qnorm.js"></script>
+  <script src="js/ibeta.js"></script>
+  <script src="js/tdist.js"></script>
+  <script src="js/welch.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+</html>

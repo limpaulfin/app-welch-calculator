@@ -1,0 +1,48 @@
+/* Input form, compute button, status line */
+.inputs label { display: block; margin: 0.6rem 0; font-size: 0.95rem; }
+.inputs label code {
+  font-family: "Courier New", monospace;
+  background: #eee;
+  padding: 0.05em 0.3em;
+  border-radius: 2px;
+}
+.inputs input {
+  display: block;
+  width: 100%;
+  max-width: 220px;
+  padding: 0.4rem;
+  font-family: monospace;
+  font-size: 1rem;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  margin-top: 0.2rem;
+}
+.inputs .hint {
+  display: block;
+  color: #777;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+}
+button#compute-btn {
+  background: var(--cud-orange);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.4rem;
+  margin-top: 0.8rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 3px;
+  font-family: inherit;
+}
+button#compute-btn:hover { background: var(--cud-green); }
+button#compute-btn:focus {
+  outline: 2px solid var(--cud-vermillion);
+  outline-offset: 2px;
+}
+.status {
+  font-size: 0.85rem;
+  color: var(--cud-green);
+  margin-top: 0.4rem;
+  min-height: 1.2em;
+}
+.status.error { color: var(--cud-vermillion); }
