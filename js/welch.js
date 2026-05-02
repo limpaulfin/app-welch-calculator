@@ -3,11 +3,11 @@
 function computeAppWelch(f, c, sigma1, sigma2) {
   if (!Number.isFinite(f) || !Number.isFinite(c) ||
       !Number.isFinite(sigma1) || !Number.isFinite(sigma2)) {
-    return { error: "All inputs must be numeric." };
+    return { errKey: "err_num" };
   }
-  if (f <= 0 || f >= 1) return { error: "Need 0 < f < 1." };
-  if (c <= 0 || c >= 1) return { error: "Need 0 < c < 1." };
-  if (sigma1 <= 0 || sigma2 <= 0) return { error: "Need sigma > 0 for both groups." };
+  if (f <= 0 || f >= 1) return { errKey: "err_f" };
+  if (c <= 0 || c >= 1) return { errKey: "err_c" };
+  if (sigma1 <= 0 || sigma2 <= 0) return { errKey: "err_s" };
 
   const z = qnorm((1 + c) / 2);
   const n_min = Math.ceil(Math.pow(z / f, 2));

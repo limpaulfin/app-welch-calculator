@@ -31,6 +31,16 @@
   font-weight: bold;
   vertical-align: middle;
 }
+.inputs label .hint {
+  display: block;
+  font-size: 0.8rem;
+  color: #666;
+  font-style: italic;
+  font-family: Georgia, "Times New Roman", serif;
+  margin-top: 0.3rem;
+  margin-left: 0;
+  line-height: 1.4;
+}
 .status {
   font-size: 0.85rem;
   color: var(--cud-green);

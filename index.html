@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>APP-Welch Calculator</title>
-  <meta name="description" content="Sample size calculator for two-group means with unequal variances. Browser-only.">
+  <meta name="description" content="Sample size calculator for two-group means with unequal variances. Browser-only. EN / VN.">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/inputs.css">
   <link rel="stylesheet" href="css/output.css">
@@ -16,59 +16,70 @@
 <body>
   <header>
     <h1>APP-Welch Calculator</h1>
-    <p class="sub">Sample size for two-group means with unequal variances.</p>
+    <p class="sub" data-i18n="subtitle">Sample size for two-group means with unequal variances.</p>
+    <button id="lang-toggle" type="button" data-i18n="lang_btn" aria-label="Switch to Vietnamese">Tiếng Việt</button>
   </header>
 
   <main>
     <div class="row-2">
     <section class="inputs">
-      <h2>Inputs (drag to explore)</h2>
-      <label>Precision $f$
+      <h2 data-i18n="inputs_h">Inputs (drag to explore)</h2>
+      <label>
+        <span data-i18n="in_f">Precision $f$</span>
         <input type="range" id="f" min="0.05" max="0.40" step="0.005" value="0.20">
         <output id="f-out">0.200</output>
+        <small class="hint" data-i18n-hint="in_f">How tight you want the answer.</small>
       </label>
-      <label>Assurance $c$
+      <label>
+        <span data-i18n="in_c">Assurance $c$</span>
         <input type="range" id="c" min="0.80" max="0.99" step="0.005" value="0.95">
         <output id="c-out">0.950</output>
+        <small class="hint" data-i18n-hint="in_c">How sure you want to be.</small>
       </label>
-      <label>$\sigma_1$ (group 1 SD)
+      <label>
+        <span data-i18n="in_s1">$\sigma_1$ (group 1 SD)</span>
         <input type="range" id="s1" min="0.1" max="5.0" step="0.05" value="1.00">
         <output id="s1-out">1.00</output>
+        <small class="hint" data-i18n-hint="in_s1">How spread out group 1 is.</small>
       </label>
-      <label>$\sigma_2$ (group 2 SD)
+      <label>
+        <span data-i18n="in_s2">$\sigma_2$ (group 2 SD)</span>
         <input type="range" id="s2" min="0.1" max="5.0" step="0.05" value="1.50">
         <output id="s2-out">1.50</output>
+        <small class="hint" data-i18n-hint="in_s2">How spread out group 2 is.</small>
       </label>
       <p class="status" id="status" aria-live="polite"></p>
     </section>
 
     <section class="output">
-      <h2>Results (live)</h2>
+      <h2 data-i18n="results_h">Results (live)</h2>
       <div id="output"></div>
     </section>
     </div>
 
     <section class="chart-section">
-      <h2>$n_{\min}$ vs precision $f$ at current $c$</h2>
+      <h2 data-i18n="chart_h">$n_{\min}$ vs precision $f$ at current $c$</h2>
       <svg id="chart" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Sample size sensitivity curve"></svg>
     </section>
 
     <section class="formula">
-      <h2>Formulas</h2>
+      <h2 data-i18n="formulas_h">Formulas</h2>
       <p>$$n_{\min} = \left\lceil \left(\frac{z_{(1+c)/2}}{f}\right)^{\!2} \right\rceil \text{ per group.}$$</p>
       <p>$$\nu^* = \frac{(\sigma_1^2/n + \sigma_2^2/n)^2}{\dfrac{(\sigma_1^2/n)^2}{n-1} + \dfrac{(\sigma_2^2/n)^2}{n-1}} \quad (\text{Satterthwaite}).$$</p>
       <p>$$\text{CI half-width} = t_{\nu^{*},\,(1+c)/2}\, \sqrt{\dfrac{\sigma_1^2}{n} + \dfrac{\sigma_2^2}{n}}.$$</p>
-      <p class="meta">$z$ via Beasley-Springer-Moro. $t$ via Newton iteration on the Lentz incomplete beta.</p>
+      <p class="meta" data-i18n="formulas_meta">$z$ via Beasley-Springer-Moro. $t$ via Newton iteration on the Lentz incomplete beta.</p>
     </section>
 
     <section class="refs">
-      <h2>What it does</h2>
-      <p>Drag the sliders. The numbers and the chart update live. Everything runs in your browser. No server. No tracking.</p>
+      <h2 data-i18n="what_h">How to read this</h2>
+      <p data-i18n="what_p">Drag any slider. Numbers and the chart update live. Each abbreviation in Results has a plain explanation right under it. Everything runs in your browser. No server. No tracking.</p>
     </section>
   </main>
 
   <footer>
-    <p>Working paper companion. Thanh-Phong Lam (HUB 2026, ORCID <a href="https://orcid.org/0009-0001-7790-5671" rel="noopener" target="_blank">0009-0001-7790-5671</a>). MIT licence. <a href="https://github.com/limpaulfin/app-welch-calculator" rel="noopener" target="_blank">github.com/limpaulfin/app-welch-calculator</a></p>
+    <p>
+      <span data-i18n="foot_pre">Working paper companion. Thanh-Phong Lam (HUB 2026, ORCID </span><a href="https://orcid.org/0009-0001-7790-5671" rel="noopener" target="_blank">0009-0001-7790-5671</a><span data-i18n="foot_mid">). MIT licence. </span><a href="https://github.com/limpaulfin/app-welch-calculator" rel="noopener" target="_blank">github.com/limpaulfin/app-welch-calculator</a>
+    </p>
   </footer>
 
   <script src="js/lgamma.js"></script>
@@ -77,6 +88,7 @@
   <script src="js/tdist.js"></script>
   <script src="js/welch.js"></script>
   <script src="js/chart.js"></script>
+  <script src="js/i18n.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/math-render.js"></script>
 </body>

@@ -1,4 +1,4 @@
-// UI binder. Range sliders update output displays + recompute + redraw chart on every drag.
+// UI binder. Range sliders + i18n EN/VN toggle. Recompute + redraw on every drag.
 function fmt(x, d) { return Number.isFinite(x) ? x.toFixed(d) : "—"; }
 
 function getInputs() {
@@ -6,15 +6,15 @@ function getInputs() {
     f: parseFloat(document.getElementById("f").value),
     c: parseFloat(document.getElementById("c").value),
     s1: parseFloat(document.getElementById("s1").value),
-    s2: parseFloat(document.getElementById("s2").value),
+    s2: parseFloat(document.getElementById("s2").value)
   };
 }
 
 function syncOutputs() {
-  const decimals = { f: 3, c: 3, s1: 2, s2: 2 };
-  ["f", "c", "s1", "s2"].forEach((id) => {
+  const dec = { f: 3, c: 3, s1: 2, s2: 2 };
+  ["f", "c", "s1", "s2"].forEach(id => {
     const v = parseFloat(document.getElementById(id).value);
-    document.getElementById(id + "-out").textContent = v.toFixed(decimals[id]);
+    document.getElementById(id + "-out").textContent = v.toFixed(dec[id]);
   });
 }
 
@@ -23,32 +23,55 @@ function onCompute() {
   const inp = getInputs();
   const out = document.getElementById("output");
   const stat = document.getElementById("status");
+  const dict = tdict();
   stat.classList.remove("error");
   const res = computeAppWelch(inp.f, inp.c, inp.s1, inp.s2);
-  if (res.error) {
+  if (res.errKey) {
     out.innerHTML = "";
     stat.classList.add("error");
-    stat.textContent = res.error;
+    stat.textContent = dict[res.errKey] || res.errKey;
     return;
   }
-  stat.textContent = "Live. Drag any slider to update.";
-  out.innerHTML = `
-    <table>
-      <tr><td>z<sub>(1+c)/2</sub></td><td>${fmt(res.z, 4)}</td></tr>
-      <tr><td>n<sub>min</sub> per group</td><td><strong>${res.n_min}</strong></td></tr>
-      <tr><td>n<sub>total</sub></td><td>${res.n_total}</td></tr>
-      <tr><td>&nu;*</td><td>${fmt(res.nu_star, 2)}</td></tr>
-      <tr><td>t-critical</td><td>${fmt(res.t_crit, 4)}</td></tr>
-      <tr><td>SE</td><td>${fmt(res.se, 4)}</td></tr>
-      <tr><td>CI half-width</td><td>&plusmn;${fmt(res.ci_half, 4)}</td></tr>
-      <tr><td>variance ratio</td><td>${fmt(res.ratio, 3)}</td></tr>
-    </table>`;
+  stat.textContent = dict.live;
+  const rows = [
+    ["r_z", fmt(res.z, 4)],
+    ["r_n", `<strong>${res.n_min}</strong>`],
+    ["r_nt", res.n_total],
+    ["r_nu", fmt(res.nu_star, 2)],
+    ["r_t", fmt(res.t_crit, 4)],
+    ["r_se", fmt(res.se, 4)],
+    ["r_ci", `±${fmt(res.ci_half, 4)}`],
+    ["r_ratio", fmt(res.ratio, 3)]
+  ];
+  out.innerHTML = `<table>${rows.map(([k, v]) => {
+    const [lbl, hint] = dict[k];
+    return `<tr class="r-main"><td>${lbl}</td><td>${v}</td></tr>` +
+           `<tr class="r-hint"><td colspan="2">${hint}</td></tr>`;
+  }).join("")}</table>`;
   renderChart(inp);
+  if (window.renderMathInElement) {
+    renderMathInElement(out, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false }
+      ],
+      throwOnError: false
+    });
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  ["f", "c", "s1", "s2"].forEach((id) => {
+  applyI18N();
+  ["f", "c", "s1", "s2"].forEach(id => {
     document.getElementById(id).addEventListener("input", onCompute);
   });
+  const btn = document.getElementById("lang-toggle");
+  if (btn) {
+    btn.addEventListener("click", () => {
+      setLang(getLang() === "en" ? "vn" : "en");
+      applyI18N();
+      onCompute();
+    });
+  }
   onCompute();
 });

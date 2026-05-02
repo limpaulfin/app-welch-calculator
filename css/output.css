@@ -1,23 +1,32 @@
-/* Output table + formula + references blocks */
+/* Output table with abbreviation row + Feynman-hint row beneath each abbreviation. */
 #output table { border-collapse: collapse; width: 100%; }
-#output td {
-  padding: 0.4rem 0.6rem;
-  border-bottom: 1px solid #eee;
-  vertical-align: top;
+#output td { padding: 0.4rem 0.6rem; vertical-align: top; }
+#output tr.r-main td {
+  border-top: 1px solid #eee;
 }
-#output td:first-child {
+#output tr.r-main td:first-child {
   font-family: "Courier New", monospace;
-  width: 45%;
-  color: #444;
+  width: 50%;
+  color: #333;
 }
-#output td:last-child {
+#output tr.r-main td:last-child {
   font-family: "Courier New", monospace;
   font-weight: bold;
   color: var(--cud-blue);
+  text-align: right;
+}
+#output tr.r-hint td {
+  font-size: 0.82rem;
+  color: #555;
+  font-style: italic;
+  font-family: Georgia, "Times New Roman", serif;
+  padding: 0.05rem 0.6rem 0.55rem 1.4rem;
+  line-height: 1.45;
+  font-weight: normal;
 }
 #output strong {
   color: var(--cud-vermillion);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
 }
 .formula p, .refs p {
   font-size: 0.92rem;
