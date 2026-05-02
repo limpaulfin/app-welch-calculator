@@ -1,45 +1,38 @@
-# app-welch-calculator
+# APP-Welch Calculator
 
-## Zusammenfassung
+A working paper companion. Sample size for two-group means with unequal variances. Runs in the browser.
 
-Browser-Rechner für das A-Priori-Verfahren unter heteroskedastischen Varianzen. Berechnet die Mindeststichprobe, die effektiven Welch-Satterthwaite-Freiheitsgrade und das Konfidenzintervall. Reines HTML, CSS und JavaScript.
+## Author
 
-## Anforderungen
+Thanh-Phong Lam - HUB 2026.
 
-- Moderner Browser (Chrome, Firefox, Safari, Edge ab 2022).
-- Kein Server, keine Installation, keine Abhängigkeit.
+## How to use
 
-## Verwendung
+Open `index.html` in any modern browser. Type the four inputs. Read the results. Nothing to install.
 
-`index.html` im Browser öffnen. Eingaben anpassen. Ergebnis erscheint sofort.
+Hosted: <https://limpaulfin.github.io/app-welch-calculator/>
 
-Online-Version: `https://limpaulfin.github.io/app-welch-calculator/`
+## Inputs
 
-## Eingaben
+- `f`: precision (between 0 and 1).
+- `c`: assurance level (between 0 and 1).
+- `σ1`, `σ2`: standard deviations of the two groups.
 
-- `f`: Genauigkeitsanteil, 0 < f < 1.
-- `c`: Sicherheitsniveau, 0 < c < 1.
-- `σ1`, `σ2`: Standardabweichungen der zwei Gruppen.
+## Outputs
 
-## Ausgaben
+- `n_min`: minimum sample per group.
+- `ν*`: Welch effective degrees of freedom.
+- `t`-critical value.
+- Confidence interval half-width.
+- Variance ratio σ_max / σ_min.
 
-- `n_min`: Mindeststichprobe pro Gruppe.
-- `ν*`: effektive Freiheitsgrade nach Satterthwaite.
-- `t`-Quantil und Konfidenzintervall-Halbweite.
+## Math kernel
 
-## Rechenkern
+- Inverse normal: Beasley-Springer-Moro.
+- Inverse t: Newton on the regularised incomplete beta.
+- Beta: Lentz continued fraction.
+- Log gamma: Lanczos.
 
-- Inverse Normal-CDF: Beasley-Springer-Moro-Algorithmus.
-- t-Quantil: Newton-Iteration auf der unvollständigen Beta-Funktion.
-- Lentz-Kettenbruch für die Beta-Funktion.
-
-## Methodischer Hintergrund
-
-Trafimow & MacDonald (2017, doi:10.1177/0013164416659745).
-Wang, Wang & Trafimow (2019).
-Trafimow (2023, doi:10.4324/9781003365167-7).
-Welch (1947). Satterthwaite (1946).
-
-## Lizenz
+## License
 
 MIT.

@@ -11,8 +11,8 @@
 </head>
 <body>
   <header>
-    <h1>APP-Welch Sample Size Calculator</h1>
-    <p class="sub">A Priori Procedure under Heterogeneous Variances. Welch-Satterthwaite extension.</p>
+    <h1>APP-Welch Calculator</h1>
+    <p class="sub">Sample size for two-group means with unequal variances.</p>
   </header>
 
   <main>
@@ -46,17 +46,17 @@
       <p><code>n<sub>min</sub> = &lceil;(z<sub>(1+c)/2</sub> / f)&sup2;&rceil;</code> per group.</p>
       <p><code>&nu;* = (&sigma;&sup2;<sub>1</sub>/n + &sigma;&sup2;<sub>2</sub>/n)&sup2; / [(&sigma;&sup2;<sub>1</sub>/n)&sup2;/(n&minus;1) + (&sigma;&sup2;<sub>2</sub>/n)&sup2;/(n&minus;1)]</code> (Satterthwaite).</p>
       <p><code>CI half-width = t<sub>&nu;*, (1+c)/2</sub> &middot; &radic;(&sigma;&sup2;<sub>1</sub>/n + &sigma;&sup2;<sub>2</sub>/n)</code>.</p>
-      <p>z computed via Beasley-Springer-Moro inverse normal. t computed via Newton iteration on Lentz incomplete beta.</p>
+      <p>z uses Beasley-Springer-Moro. t uses Newton iteration on the Lentz incomplete beta.</p>
     </section>
 
     <section class="refs">
-      <h2>Methodological Background</h2>
-      <p>The A Priori Procedure was introduced by Trafimow &amp; MacDonald (2017, <a href="https://doi.org/10.1177/0013164416659745">doi:10.1177/0013164416659745</a>) and further developed by Wang, Wang &amp; Trafimow (2019), Trafimow et al. (2020), and Trafimow (2023, <a href="https://doi.org/10.4324/9781003365167-7">doi:10.4324/9781003365167-7</a>). Heteroscedastic inference uses the Welch (1947) <em>t</em>-statistic with Satterthwaite (1946) effective degrees of freedom. Online calculators accompanying earlier APP papers are linked from the Trafimow (2023) chapter.</p>
+      <h2>What it does</h2>
+      <p>Type the precision <code>f</code>, the assurance <code>c</code>, and the two group standard deviations. The calculator returns the minimum sample per group, the Welch effective degrees of freedom, and the confidence interval half-width. All math runs in the browser. No server. No tracking.</p>
     </section>
   </main>
 
   <footer>
-    <p>Source: <a href="https://github.com/limpaulfin/app-welch-calculator">github.com/limpaulfin/app-welch-calculator</a> &middot; MIT License &middot; Pure HTML/CSS/JS &middot; No tracking.</p>
+    <p>Working paper companion. Thanh-Phong Lam - HUB 2026. MIT licence. <a href="https://github.com/limpaulfin/app-welch-calculator">github.com/limpaulfin/app-welch-calculator</a></p>
   </footer>
 
   <script src="js/lgamma.js"></script>

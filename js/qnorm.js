@@ -1,4 +1,4 @@
-// Inverse standard normal CDF (Beasley-Springer-Moro 1977).
+// Inverse standard normal CDF via Beasley-Springer-Moro.
 function qnorm(p) {
   if (p <= 0 || p >= 1) return NaN;
   const a = [-3.969683028665376e+01, 2.209460984245205e+02, -2.759285104469687e+02,
