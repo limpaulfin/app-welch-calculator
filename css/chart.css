@@ -1,0 +1,14 @@
+/* SVG sensitivity chart container */
+.chart-section { display: flex; flex-direction: column; }
+.chart-section svg {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  background: white;
+  border: 1px solid var(--cud-rule);
+  border-radius: 4px;
+}
+.chart-section svg text {
+  font-family: Georgia, "Times New Roman", serif;
+  fill: #333;
+}

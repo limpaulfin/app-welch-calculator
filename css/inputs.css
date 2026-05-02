@@ -1,48 +1,43 @@
-/* Input form, compute button, status line */
-.inputs label { display: block; margin: 0.6rem 0; font-size: 0.95rem; }
+/* Sliders + paired output displays + button + status */
+.inputs label {
+  display: block;
+  margin: 0.7rem 0;
+  font-size: 0.95rem;
+}
 .inputs label code {
   font-family: "Courier New", monospace;
   background: #eee;
   padding: 0.05em 0.3em;
   border-radius: 2px;
 }
-.inputs input {
-  display: block;
-  width: 100%;
-  max-width: 220px;
-  padding: 0.4rem;
-  font-family: monospace;
-  font-size: 1rem;
-  border: 1px solid #aaa;
+.inputs input[type="range"] {
+  display: inline-block;
+  width: 70%;
+  max-width: 320px;
+  margin-top: 0.3rem;
+  cursor: ew-resize;
+  vertical-align: middle;
+}
+.inputs output {
+  display: inline-block;
+  font-family: "Courier New", monospace;
+  background: #f0f0f0;
   border-radius: 3px;
-  margin-top: 0.2rem;
-}
-.inputs .hint {
-  display: block;
-  color: #777;
-  font-size: 0.8rem;
-  margin-top: 0.2rem;
-}
-button#compute-btn {
-  background: var(--cud-orange);
-  color: white;
-  border: none;
-  padding: 0.6rem 1.4rem;
-  margin-top: 0.8rem;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 3px;
-  font-family: inherit;
-}
-button#compute-btn:hover { background: var(--cud-green); }
-button#compute-btn:focus {
-  outline: 2px solid var(--cud-vermillion);
-  outline-offset: 2px;
+  padding: 0.15em 0.55em;
+  margin-left: 0.6rem;
+  min-width: 4em;
+  text-align: right;
+  color: var(--cud-blue);
+  font-weight: bold;
+  vertical-align: middle;
 }
 .status {
   font-size: 0.85rem;
   color: var(--cud-green);
-  margin-top: 0.4rem;
+  margin-top: 0.6rem;
   min-height: 1.2em;
 }
-.status.error { color: var(--cud-vermillion); }
+.status.error {
+  color: var(--cud-vermillion);
+  font-weight: bold;
+}

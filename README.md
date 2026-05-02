@@ -4,7 +4,7 @@ A working paper companion. Sample size for two-group means with unequal variance
 
 ## Author
 
-Thanh-Phong Lam - HUB 2026.
+Thanh-Phong Lam. HUB 2026. ORCID: <https://orcid.org/0009-0001-7790-5671>.
 
 ## How to use
 
