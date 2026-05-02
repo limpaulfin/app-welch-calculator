@@ -49,6 +49,8 @@ function onCompute() {
            `<tr class="r-hint"><td colspan="2">${hint}</td></tr>`;
   }).join("")}</table>`;
   renderChart(inp);
+  renderChart2(inp, res);
+  renderChart3(inp, res);
   if (window.renderMathInElement) {
     renderMathInElement(out, {
       delimiters: [
@@ -60,18 +62,27 @@ function onCompute() {
   }
 }
 
+function setActiveFlag() {
+  const lang = getLang();
+  document.querySelectorAll("#lang-toggle button").forEach(b => {
+    b.classList.toggle("active", b.dataset.lang === lang);
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   applyI18N();
+  setActiveFlag();
   ["f", "c", "s1", "s2"].forEach(id => {
     document.getElementById(id).addEventListener("input", onCompute);
   });
-  const btn = document.getElementById("lang-toggle");
-  if (btn) {
-    btn.addEventListener("click", () => {
-      setLang(getLang() === "en" ? "vn" : "en");
+  document.querySelectorAll("#lang-toggle button").forEach(b => {
+    b.addEventListener("click", () => {
+      if (b.dataset.lang === getLang()) return;
+      setLang(b.dataset.lang);
       applyI18N();
+      setActiveFlag();
       onCompute();
     });
-  }
+  });
   onCompute();
 });

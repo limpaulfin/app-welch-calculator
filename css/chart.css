@@ -1,14 +1,31 @@
-/* SVG sensitivity chart container */
+/* Three-chart grid + figure caption */
 .chart-section { display: flex; flex-direction: column; }
-.chart-section svg {
+.charts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.8rem;
+}
+.charts-row figure { margin: 0; }
+.charts-row svg {
   width: 100%;
-  max-width: 600px;
   height: auto;
   background: white;
   border: 1px solid var(--cud-rule);
   border-radius: 4px;
+  display: block;
 }
-.chart-section svg text {
+.charts-row svg text {
   font-family: Georgia, "Times New Roman", serif;
   fill: #333;
+}
+.charts-row figcaption {
+  font-size: 0.82rem;
+  text-align: center;
+  margin-top: 0.3rem;
+  color: #555;
+  font-style: italic;
+  font-family: Georgia, "Times New Roman", serif;
+}
+@media (max-width: 720px) {
+  .charts-row { grid-template-columns: 1fr; }
 }

@@ -5,7 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>APP-Welch Calculator</title>
   <meta name="description" content="Sample size calculator for two-group means with unequal variances. Browser-only. EN / VN.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/lang.css">
   <link rel="stylesheet" href="css/inputs.css">
   <link rel="stylesheet" href="css/output.css">
   <link rel="stylesheet" href="css/chart.css">
@@ -17,7 +21,14 @@
   <header>
     <h1>APP-Welch Calculator</h1>
     <p class="sub" data-i18n="subtitle">Sample size for two-group means with unequal variances.</p>
-    <button id="lang-toggle" type="button" data-i18n="lang_btn" aria-label="Switch to Vietnamese">Tiếng Việt</button>
+    <div id="lang-toggle" role="group" aria-label="Language">
+      <button type="button" data-lang="en" title="English" aria-label="English">
+        <svg viewBox="0 0 60 40" width="26" height="17"><rect width="60" height="40" fill="#fff"/><g fill="#b22234"><rect width="60" height="3.08"/><rect y="6.16" width="60" height="3.08"/><rect y="12.32" width="60" height="3.08"/><rect y="18.48" width="60" height="3.08"/><rect y="24.64" width="60" height="3.08"/><rect y="30.80" width="60" height="3.08"/><rect y="36.96" width="60" height="3.08"/></g><rect width="24" height="21.55" fill="#3c3b6e"/></svg>
+      </button>
+      <button type="button" data-lang="vn" title="Tiếng Việt" aria-label="Tiếng Việt">
+        <svg viewBox="0 0 60 40" width="26" height="17"><rect width="60" height="40" fill="#da251d"/><polygon points="30,8 33.53,18.86 44.95,18.86 35.71,25.57 39.24,36.43 30,29.72 20.76,36.43 24.29,25.57 15.05,18.86 26.47,18.86" fill="#ff0"/></svg>
+      </button>
+    </div>
   </header>
 
   <main>
@@ -28,25 +39,25 @@
         <span data-i18n="in_f">Precision $f$</span>
         <input type="range" id="f" min="0.05" max="0.40" step="0.005" value="0.20">
         <output id="f-out">0.200</output>
-        <small class="hint" data-i18n-hint="in_f">How tight you want the answer.</small>
+        <small class="hint" data-i18n-hint="in_f">Smaller f = tighter answer.</small>
       </label>
       <label>
         <span data-i18n="in_c">Assurance $c$</span>
         <input type="range" id="c" min="0.80" max="0.99" step="0.005" value="0.95">
         <output id="c-out">0.950</output>
-        <small class="hint" data-i18n-hint="in_c">How sure you want to be.</small>
+        <small class="hint" data-i18n-hint="in_c">0.95 = right 95 of 100 times.</small>
       </label>
       <label>
         <span data-i18n="in_s1">$\sigma_1$ (group 1 SD)</span>
         <input type="range" id="s1" min="0.1" max="5.0" step="0.05" value="1.00">
         <output id="s1-out">1.00</output>
-        <small class="hint" data-i18n-hint="in_s1">How spread out group 1 is.</small>
+        <small class="hint" data-i18n-hint="in_s1">Spread of group 1.</small>
       </label>
       <label>
         <span data-i18n="in_s2">$\sigma_2$ (group 2 SD)</span>
         <input type="range" id="s2" min="0.1" max="5.0" step="0.05" value="1.50">
         <output id="s2-out">1.50</output>
-        <small class="hint" data-i18n-hint="in_s2">How spread out group 2 is.</small>
+        <small class="hint" data-i18n-hint="in_s2">Spread of group 2.</small>
       </label>
       <p class="status" id="status" aria-live="polite"></p>
     </section>
@@ -58,8 +69,21 @@
     </div>
 
     <section class="chart-section">
-      <h2 data-i18n="chart_h">$n_{\min}$ vs precision $f$ at current $c$</h2>
-      <svg id="chart" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Sample size sensitivity curve"></svg>
+      <h2 data-i18n="charts_h">Charts (live updates)</h2>
+      <div class="charts-row">
+        <figure>
+          <svg id="chart" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid meet" role="img" aria-label="n_min vs f"></svg>
+          <figcaption data-i18n="chart_h">$n_{\min}$ vs precision $f$</figcaption>
+        </figure>
+        <figure>
+          <svg id="chart2" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid meet" role="img" aria-label="nu vs sigma ratio"></svg>
+          <figcaption data-i18n="chart2_h">$\nu^*$ vs $\sigma$-ratio</figcaption>
+        </figure>
+        <figure>
+          <svg id="chart3" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid meet" role="img" aria-label="CI half-width vs n"></svg>
+          <figcaption data-i18n="chart3_h">CI half-width vs $n$</figcaption>
+        </figure>
+      </div>
     </section>
 
     <section class="formula">
@@ -67,12 +91,12 @@
       <p>$$n_{\min} = \left\lceil \left(\frac{z_{(1+c)/2}}{f}\right)^{\!2} \right\rceil \text{ per group.}$$</p>
       <p>$$\nu^* = \frac{(\sigma_1^2/n + \sigma_2^2/n)^2}{\dfrac{(\sigma_1^2/n)^2}{n-1} + \dfrac{(\sigma_2^2/n)^2}{n-1}} \quad (\text{Satterthwaite}).$$</p>
       <p>$$\text{CI half-width} = t_{\nu^{*},\,(1+c)/2}\, \sqrt{\dfrac{\sigma_1^2}{n} + \dfrac{\sigma_2^2}{n}}.$$</p>
-      <p class="meta" data-i18n="formulas_meta">$z$ via Beasley-Springer-Moro. $t$ via Newton iteration on the Lentz incomplete beta.</p>
+      <p class="meta" data-i18n="formulas_meta">$z$ via Beasley-Springer-Moro. $t$ via Newton on Lentz incomplete beta.</p>
     </section>
 
     <section class="refs">
       <h2 data-i18n="what_h">How to read this</h2>
-      <p data-i18n="what_p">Drag any slider. Numbers and the chart update live. Each abbreviation in Results has a plain explanation right under it. Everything runs in your browser. No server. No tracking.</p>
+      <p data-i18n="what_p">Drag any slider. Numbers and the three charts update live. Each abbreviation in Results has a one-line plain explanation right under it. Browser-only. No server. No tracking.</p>
     </section>
   </main>
 

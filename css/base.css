@@ -27,28 +27,6 @@ header {
 }
 header h1 { color: var(--cud-blue); margin: 0; font-size: 1.5rem; }
 header .sub { color: #555; font-style: italic; margin-top: 0.3rem; }
-#lang-toggle {
-  position: absolute;
-  top: 0.4rem;
-  right: 0;
-  background: var(--cud-blue);
-  color: #fff;
-  border: none;
-  padding: 0.4rem 0.85rem;
-  border-radius: 3px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.85rem;
-  cursor: pointer;
-}
-#lang-toggle:hover { background: #005a8f; }
-@media (max-width: 480px) {
-  header { padding-right: 1rem; }
-  #lang-toggle {
-    position: static;
-    display: inline-block;
-    margin-top: 0.5rem;
-  }
-}
 main { display: grid; gap: 1.5rem; margin-top: 1.5rem; }
 section h2 {
   font-size: 1.05rem;

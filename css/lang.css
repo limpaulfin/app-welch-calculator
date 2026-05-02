@@ -1,0 +1,49 @@
+/* Language toggle (US + VN flag buttons) + Vietnamese font override. */
+#lang-toggle {
+  position: absolute;
+  top: 0.5rem;
+  right: 0;
+  display: inline-flex;
+  gap: 0.4rem;
+}
+#lang-toggle button {
+  background: none;
+  border: 2px solid transparent;
+  border-radius: 3px;
+  padding: 0.18rem 0.22rem;
+  cursor: pointer;
+  line-height: 0;
+  opacity: 0.55;
+  transition: opacity 0.15s, border-color 0.15s;
+}
+#lang-toggle button:hover { opacity: 1; }
+#lang-toggle button.active {
+  opacity: 1;
+  border-color: var(--cud-blue);
+}
+#lang-toggle button svg {
+  display: block;
+  border: 1px solid #ccc;
+}
+/* Vietnamese-friendly sans-serif when lang=vi (Georgia diacritic stack uneven). */
+html[lang="vi"] body,
+html[lang="vi"] header h1,
+html[lang="vi"] header .sub,
+html[lang="vi"] section h2,
+html[lang="vi"] .inputs label,
+html[lang="vi"] .inputs label .hint,
+html[lang="vi"] .status,
+html[lang="vi"] #output tr.r-hint td,
+html[lang="vi"] .formula p,
+html[lang="vi"] .refs p,
+html[lang="vi"] footer,
+html[lang="vi"] .charts-row figcaption {
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+@media (max-width: 480px) {
+  #lang-toggle {
+    position: static;
+    display: inline-flex;
+    margin-top: 0.5rem;
+  }
+}
