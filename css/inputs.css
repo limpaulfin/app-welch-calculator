@@ -12,24 +12,39 @@
 }
 .inputs input[type="range"] {
   display: inline-block;
-  width: 70%;
-  max-width: 320px;
+  width: 60%;
+  max-width: 280px;
   margin-top: 0.3rem;
   cursor: ew-resize;
   vertical-align: middle;
 }
-.inputs output {
+.inputs input[type="number"] {
   display: inline-block;
   font-family: "Courier New", monospace;
   background: #f0f0f0;
+  border: 1px solid #c8c8c8;
   border-radius: 3px;
-  padding: 0.15em 0.55em;
+  padding: 0.15em 0.4em;
   margin-left: 0.6rem;
-  min-width: 4em;
+  width: 5.5em;
   text-align: right;
   color: var(--cud-blue);
   font-weight: bold;
   vertical-align: middle;
+}
+.inputs input[type="number"]:focus {
+  outline: 2px solid var(--cud-orange);
+  background: #fff;
+}
+.inputs .note {
+  font-size: 0.82rem;
+  color: #444;
+  background: #fff8e7;
+  border-left: 3px solid var(--cud-orange);
+  padding: 0.5rem 0.7rem;
+  margin: 0.8rem 0 0.4rem 0;
+  line-height: 1.4;
+  border-radius: 2px;
 }
 .inputs label .hint {
   display: block;

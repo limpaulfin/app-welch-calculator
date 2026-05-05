@@ -1,25 +1,28 @@
-// UI binder. Range sliders + i18n EN/VN toggle. Recompute + redraw on every drag.
+// UI binder. Range slider + number input (paired) + i18n EN/VN toggle. Recompute on every input.
 function fmt(x, d) { return Number.isFinite(x) ? x.toFixed(d) : "—"; }
 
+const DEC = { f: 3, c: 3, s1: 2, s2: 2 };
+
 function getInputs() {
-  return {
-    f: parseFloat(document.getElementById("f").value),
-    c: parseFloat(document.getElementById("c").value),
-    s1: parseFloat(document.getElementById("s1").value),
-    s2: parseFloat(document.getElementById("s2").value)
-  };
+  // number input is canonical: it accepts values beyond slider range (e.g. sigma > 5).
+  const v = id => parseFloat(document.getElementById(id + "-num").value);
+  return { f: v("f"), c: v("c"), s1: v("s1"), s2: v("s2") };
 }
 
-function syncOutputs() {
-  const dec = { f: 3, c: 3, s1: 2, s2: 2 };
-  ["f", "c", "s1", "s2"].forEach(id => {
-    const v = parseFloat(document.getElementById(id).value);
-    document.getElementById(id + "-out").textContent = v.toFixed(dec[id]);
-  });
+function syncFromRange(id) {
+  const r = document.getElementById(id);
+  const n = document.getElementById(id + "-num");
+  n.value = parseFloat(r.value).toFixed(DEC[id]);
+}
+
+function syncFromNum(id) {
+  const r = document.getElementById(id);
+  const n = document.getElementById(id + "-num");
+  const v = parseFloat(n.value);
+  if (Number.isFinite(v)) r.value = v; // slider auto-clamps to its [min,max]; number value preserved
 }
 
 function onCompute() {
-  syncOutputs();
   const inp = getInputs();
   const out = document.getElementById("output");
   const stat = document.getElementById("status");
@@ -73,7 +76,8 @@ document.addEventListener("DOMContentLoaded", () => {
   applyI18N();
   setActiveFlag();
   ["f", "c", "s1", "s2"].forEach(id => {
-    document.getElementById(id).addEventListener("input", onCompute);
+    document.getElementById(id).addEventListener("input", () => { syncFromRange(id); onCompute(); });
+    document.getElementById(id + "-num").addEventListener("input", () => { syncFromNum(id); onCompute(); });
   });
   document.querySelectorAll("#lang-toggle button").forEach(b => {
     b.addEventListener("click", () => {
